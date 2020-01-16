@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deviget_UWP.RedditApi.Models
+namespace Deviget_UWP.Models
 {
     public class RedditLinkListing
     {

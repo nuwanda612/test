@@ -61,11 +61,14 @@
     <Compile Include="RedditApi\DTOs\RedditLinkDTO.cs" />
     <Compile Include="RedditApi\DTOs\RedditLinkListingDTO.cs" />
     <Compile Include="RedditApi\DTOs\RedditObjectDTO.cs" />
-    <Compile Include="RedditApi\Models\RedditListing.cs" />
+    <Compile Include="Models\RedditListing.cs" />
     <Compile Include="RedditApi\DTOs\RedditObjectType.cs" />
-    <Compile Include="RedditApi\Models\RedditLink.cs" />
+    <Compile Include="Models\RedditLink.cs" />
     <Compile Include="RedditApi\DTOs\RedditResponseType.cs" />
     <Compile Include="RedditApi\RedditApiClient.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RedditLinkViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

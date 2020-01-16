@@ -1,5 +1,5 @@
-﻿using Deviget_UWP.RedditApi.DTOs;
-using Deviget_UWP.RedditApi.Models;
+﻿using Deviget_UWP.Models;
+using Deviget_UWP.RedditApi.DTOs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -46,7 +46,7 @@ namespace Deviget_UWP.RedditApi
                         Title = child.data.title,
                         Score = child.data.score,
                         Url = child.data.url,
-                        Thumbnail = child.data.thumbnail,
+                        ThumbnailUrl = child.data.thumbnail,
                         Created = DateTimeOffset.FromUnixTimeSeconds((long)child.data.created_utc).LocalDateTime,
                     }).ToList(),
                     After = response.data.after,

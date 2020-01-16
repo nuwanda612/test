@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Deviget_UWP.RedditApi.Models
+namespace Deviget_UWP.Models
 {
     public class RedditLink
     {
@@ -12,7 +12,7 @@ namespace Deviget_UWP.RedditApi.Models
         public string Author { get; set; }
         public DateTime Created { get; set; }
         public string Url { get; set; }
-        public string Thumbnail { get; set; }
+        public string ThumbnailUrl { get; set; }
         public int Score { get; set; }
     }
 }

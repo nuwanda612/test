@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Deviget_UWP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Reddit Client" Height="960" Width="800">
     <Grid>
-        
+        <DockPanel>
+            <StackPanel Orientation="Vertical">
+                <Button Content="Refresh" Command="{Binding RefreshCommand}"></Button>
+                <ListBox DockPanel.Dock="Left" Width="200" ItemsSource="{Binding Links}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" BorderBrush="Black">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="Author:" FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding RedditLink.Author}"></TextBlock>
+                                    <TextBlock Text="Title:" FontWeight="Bold"></TextBlock>
+                                    <TextBlock Text="{Binding RedditLink.Title}"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <Grid></Grid>
+        </DockPanel>
     </Grid>
 </Window>
