@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace Deviget_UWP.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : ViewModelBase
     {
         #region Properties
 
@@ -18,17 +18,35 @@ namespace Deviget_UWP.ViewModels
 
         public ObservableCollection<RedditLinkViewModel> Links { get; } = new ObservableCollection<RedditLinkViewModel>();
 
+        private bool _refreshing;
+        public bool Refreshing
+        {
+            get { return _refreshing; }
+            set
+            {
+                if (_refreshing == value)
+                    return;
+
+                _refreshing = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(RefreshButtonText));
+                RefreshCommand.OnCanExecuteChanged();
+            }
+        }
+
+        public string RefreshButtonText => Refreshing ? "Refreshing..." : "Refresh";
+
         #endregion
 
         #region Commands
 
         RelayCommand _refreshCommand;
-        public ICommand RefreshCommand
+        public RelayCommand RefreshCommand
         {
             get
             {
                 if (_refreshCommand == null)
-                    _refreshCommand = new RelayCommand((param) => DoRefresh());
+                    _refreshCommand = new RelayCommand((param) => DoRefresh(), (param) => !Refreshing);
                 return _refreshCommand;
             }
         }
@@ -39,12 +57,21 @@ namespace Deviget_UWP.ViewModels
 
         private async void DoRefresh()
         {
-            LinkListing = await RedditApiClient.Top();
-
-            Links.Clear();
-            foreach (var link in LinkListing.Links)
+            try
             {
-                Links.Add(new RedditLinkViewModel(link));
+                Refreshing = true;
+
+                LinkListing = await RedditApiClient.Top();
+
+                Links.Clear();
+                foreach (var link in LinkListing.Links)
+                {
+                    Links.Add(new RedditLinkViewModel(link));
+                }
+            }
+            finally
+            {
+                Refreshing = false;
             }
         }
 

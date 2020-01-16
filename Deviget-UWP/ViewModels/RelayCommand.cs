@@ -38,15 +38,16 @@ namespace Deviget_UWP.ViewModels
 
         #region ICommand Members
 
+        public event EventHandler CanExecuteChanged;
+
+        public void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         public bool CanExecute(object parameter)
         {
             return _canExecute == null ? true : _canExecute(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
         }
 
         public void Execute(object parameter)

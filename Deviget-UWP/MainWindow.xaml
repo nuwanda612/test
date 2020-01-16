@@ -9,7 +9,7 @@
     <Grid>
         <DockPanel>
             <StackPanel Orientation="Vertical">
-                <Button Content="Refresh" Command="{Binding RefreshCommand}"></Button>
+                <Button Content="{Binding RefreshButtonText}" Command="{Binding RefreshCommand}"></Button>
                 <ListBox DockPanel.Dock="Left" Width="200" ItemsSource="{Binding Links}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
