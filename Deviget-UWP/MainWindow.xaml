@@ -58,6 +58,7 @@
         <DockPanel>
             <DockPanel Background="Black" Width="300">
                 <Button DockPanel.Dock="Top" Height="30" Content="{Binding RefreshButtonText}" Command="{Binding RefreshCommand}" Foreground="DarkOrange" HorizontalContentAlignment="Center" FontSize="16"></Button>
+                <Button DockPanel.Dock="Bottom" Height="30" Content="Dismiss all" Command="{Binding DismissAllCommand}" Foreground="DarkOrange" HorizontalContentAlignment="Center" FontSize="16"></Button>
                 <ListBox ItemsSource="{Binding Links}" SelectedItem="{Binding SelectedLink}" HorizontalContentAlignment="Stretch" Foreground="LightGray" Background="Black" ScrollViewer.CanContentScroll="False" >
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
