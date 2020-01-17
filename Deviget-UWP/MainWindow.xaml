@@ -59,7 +59,7 @@
             <DockPanel Background="Black" Width="300">
                 <Button DockPanel.Dock="Top" Height="30" Content="{Binding RefreshButtonText}" Command="{Binding RefreshCommand}" Foreground="DarkOrange" HorizontalContentAlignment="Center" FontSize="16"></Button>
                 <Button DockPanel.Dock="Bottom" Height="30" Content="Dismiss all" Command="{Binding DismissAllCommand}" Foreground="DarkOrange" HorizontalContentAlignment="Center" FontSize="16"></Button>
-                <ListBox ItemsSource="{Binding Links}" SelectedItem="{Binding SelectedLink}" HorizontalContentAlignment="Stretch" Foreground="LightGray" Background="Black" ScrollViewer.CanContentScroll="False" >
+                <ListBox ItemsSource="{Binding Links}" SelectedItem="{Binding SelectedLink}" HorizontalContentAlignment="Stretch" Background="Black" ScrollViewer.CanContentScroll="False" >
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Style.Resources>
@@ -68,16 +68,20 @@
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="LightGray" />
                             </Style.Resources>
                             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                            <Setter Property="Foreground" Value="{Binding TextColor}" />
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Gray" BorderThickness="0 0 0 1">
                                 <DockPanel>
-                                    <TextBlock DockPanel.Dock="Top" Margin="3">
-                                        <Run Text="{Binding RedditLink.Author}" FontSize="18" />
-                                        <Run Text="{Binding CreatedAgo, Mode=OneWay}" />
-                                    </TextBlock>
+                                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                        <Ellipse Width="10" Height="10" Fill="#086EFF" Margin="3" Visibility="{Binding UnreadIconVisibility}" />
+                                        <TextBlock Margin="3">
+                                            <Run Text="{Binding RedditLink.Author}" FontSize="18" />
+                                            <Run Text="{Binding CreatedAgo, Mode=OneWay}" />
+                                        </TextBlock>
+                                    </StackPanel>
                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
                                         <Button Command="{Binding DataContext.DismissCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
                                             <Grid Margin="4">
@@ -92,7 +96,7 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <Image DockPanel.Dock="Left" Source="{Binding RedditLink.ThumbnailUrl}" Width="70" Height="70" Margin="5" />
-                                    <TextBlock Text=">" DockPanel.Dock="Right" Foreground="LightGray" FontWeight="Bold" FontFamily="Courier New" FontSize="16" VerticalAlignment="Center" Margin="5" />
+                                    <TextBlock Text=">" DockPanel.Dock="Right" FontWeight="Bold" FontFamily="Courier New" FontSize="16" VerticalAlignment="Center" Margin="5" />
                                     <TextBlock Text="{Binding RedditLink.Title}" Width="170" Height="50" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="3" />
                                 </DockPanel>
                             </Border>

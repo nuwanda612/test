@@ -4,12 +4,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media;
 
 namespace Deviget_UWP.ViewModels
 {
-    public class RedditLinkViewModel
+    public class RedditLinkViewModel : ViewModelBase
     {
         public RedditLink RedditLink { get; private set; }
+
+        private bool _unread = true;
+        public bool Unread
+        {
+            get { return _unread; }
+            set
+            {
+                if (_unread == value)
+                    return;
+
+                _unread = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(UnreadIconVisibility));
+                OnPropertyChanged(nameof(TextColor));
+            }
+        }
+
+        public Visibility UnreadIconVisibility => Unread ? Visibility.Visible : Visibility.Hidden;
+
+        public Brush TextColor => Unread ? Brushes.White : Brushes.LightGray;
 
         public string CreatedAgo
         {

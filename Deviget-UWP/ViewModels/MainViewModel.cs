@@ -29,6 +29,9 @@ namespace Deviget_UWP.ViewModels
 
                 _selectedLink = value;
                 OnPropertyChanged();
+
+                if (_selectedLink != null)
+                    _selectedLink.Unread = false;
             }
         }
 
