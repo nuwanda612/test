@@ -58,10 +58,15 @@
         <DockPanel>
             <DockPanel Background="Black" Width="300">
                 <Button DockPanel.Dock="Top" Height="30" Content="{Binding RefreshButtonText}" Command="{Binding RefreshCommand}" Foreground="DarkOrange" HorizontalContentAlignment="Center" FontSize="16"></Button>
-                <ListBox ItemsSource="{Binding Links}" HorizontalContentAlignment="Stretch" Foreground="LightGray" Background="Black" ScrollViewer.CanContentScroll="False" >
+                <ListBox ItemsSource="{Binding Links}" SelectedItem="{Binding SelectedLink}" HorizontalContentAlignment="Stretch" Foreground="LightGray" Background="Black" ScrollViewer.CanContentScroll="False" >
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
-                            <Setter Property="Focusable" Value="False"/>
+                            <Style.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="LightGray" />
+                            </Style.Resources>
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                         </Style>
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
@@ -86,7 +91,7 @@
                                         </TextBlock>
                                     </StackPanel>
                                     <Image DockPanel.Dock="Left" Source="{Binding RedditLink.ThumbnailUrl}" Width="70" Height="70" Margin="5" />
-                                    <Button Content=">" DockPanel.Dock="Right" Margin="5" Foreground="LightGray" FontWeight="Bold" FontFamily="Courier New" FontSize="16" VerticalAlignment="Center" />
+                                    <TextBlock Text=">" DockPanel.Dock="Right" Foreground="LightGray" FontWeight="Bold" FontFamily="Courier New" FontSize="16" VerticalAlignment="Center" Margin="5" />
                                     <TextBlock Text="{Binding RedditLink.Title}" Width="170" Height="50" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="3" />
                                 </DockPanel>
                             </Border>
@@ -94,7 +99,11 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </DockPanel>
-            <Grid></Grid>
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Top" Text="{Binding SelectedLink.RedditLink.Author}" FontSize="18" Margin="5" />
+                <TextBlock DockPanel.Dock="Top" Text="{Binding SelectedLink.RedditLink.Title}" TextWrapping="Wrap" FontSize="16" Margin="5" />
+                <Image DockPanel.Dock="Top" Source="{Binding SelectedLink.RedditLink.Url}" Margin="5" />
+            </DockPanel>
         </DockPanel>
     </Grid>
 </Window>

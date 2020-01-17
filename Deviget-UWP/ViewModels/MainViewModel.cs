@@ -18,6 +18,20 @@ namespace Deviget_UWP.ViewModels
 
         public ObservableCollection<RedditLinkViewModel> Links { get; } = new ObservableCollection<RedditLinkViewModel>();
 
+        private RedditLinkViewModel _selectedLink;
+        public RedditLinkViewModel SelectedLink
+        {
+            get { return _selectedLink; }
+            set
+            {
+                if (_selectedLink == value)
+                    return;
+
+                _selectedLink = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _refreshing;
         public bool Refreshing
         {
@@ -46,7 +60,7 @@ namespace Deviget_UWP.ViewModels
             get
             {
                 if (_refreshCommand == null)
-                    _refreshCommand = new RelayCommand((param) => DoRefresh(), (param) => !Refreshing);
+                    _refreshCommand = new RelayCommand((param) => Refresh(), (param) => !Refreshing);
                 return _refreshCommand;
             }
         }
@@ -55,7 +69,7 @@ namespace Deviget_UWP.ViewModels
 
         #region Methods
 
-        private async void DoRefresh()
+        private async void Refresh()
         {
             try
             {
