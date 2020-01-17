@@ -78,7 +78,7 @@
                                         <Run Text="{Binding RedditLink.CreatedAgo, Mode=OneWay}" />
                                     </TextBlock>
                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
-                                        <Button>
+                                        <Button Command="{Binding DataContext.DismissCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
                                             <Grid Margin="4">
                                                 <Ellipse Width="20" Height="20" Stroke="DarkOrange" StrokeThickness="2" />
                                                 <Path Width="8" Height="8" Data="M 0 0 L 8 8 M 0 8 L 8 0" Stroke="DarkOrange" StrokeThickness="2" />

@@ -65,6 +65,17 @@ namespace Deviget_UWP.ViewModels
             }
         }
 
+        RelayCommand _dismissCommand;
+        public RelayCommand DismissCommand
+        {
+            get
+            {
+                if (_dismissCommand == null)
+                    _dismissCommand = new RelayCommand((param) => Dismiss((RedditLinkViewModel)param));
+                return _dismissCommand;
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -87,6 +98,11 @@ namespace Deviget_UWP.ViewModels
             {
                 Refreshing = false;
             }
+        }
+
+        private void Dismiss(RedditLinkViewModel link)
+        {
+            Links.Remove(link);
         }
 
         #endregion
