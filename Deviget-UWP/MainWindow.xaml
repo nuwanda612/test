@@ -76,7 +76,7 @@
                                 <DockPanel>
                                     <TextBlock DockPanel.Dock="Top" Margin="3">
                                         <Run Text="{Binding RedditLink.Author}" FontSize="18" />
-                                        <Run Text="{Binding RedditLink.CreatedAgo, Mode=OneWay}" />
+                                        <Run Text="{Binding CreatedAgo, Mode=OneWay}" />
                                     </TextBlock>
                                     <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
                                         <Button Command="{Binding DataContext.DismissCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="{Binding}">
