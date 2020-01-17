@@ -42,12 +42,13 @@ namespace Deviget_UWP.RedditApi
                 {
                     Links = response.data.children.Select(child => new RedditLink
                     {
-                        Author = child.data.author,
                         Title = child.data.title,
-                        Score = child.data.score,
+                        Author = child.data.author,
+                        Created = DateTimeOffset.FromUnixTimeSeconds((long)child.data.created_utc).LocalDateTime,
                         Url = child.data.url,
                         ThumbnailUrl = child.data.thumbnail,
-                        Created = DateTimeOffset.FromUnixTimeSeconds((long)child.data.created_utc).LocalDateTime,
+                        NumComments = child.data.num_comments,
+                        Score = child.data.score,
                     }).ToList(),
                     After = response.data.after,
                     Before = response.data.before,

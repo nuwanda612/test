@@ -18,5 +18,6 @@ namespace Deviget_UWP.RedditApi.DTOs
         public string url { get; set; }
         public string thumbnail { get; set; }
         public int score { get; set; }
+        public int num_comments { get; set; }
     }
 }

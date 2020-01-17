@@ -4,27 +4,96 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Deviget_UWP"
+        xmlns:vm="clr-namespace:Deviget_UWP.ViewModels"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel,
+                                         IsDesignTimeCreatable=True}"
         Title="Reddit Client" Height="960" Width="800">
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ScrollBar}">
+            <Style.Resources>
+                <ControlTemplate x:Key="ScrollBarThumbTemplate" TargetType="{x:Type Thumb}">
+                    <Border Background="DarkOrange" CornerRadius="1" />
+                </ControlTemplate>
+                <ControlTemplate x:Key="VerticalScrollBar" TargetType="{x:Type ScrollBar}">
+                    <Track x:Name="PART_Track" IsDirectionReversed="True">
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb" Focusable="False" Template="{StaticResource ScrollBarThumbTemplate}" />
+                        </Track.Thumb>
+                    </Track>
+                </ControlTemplate>
+                <ControlTemplate x:Key="HorizontalScrollBar" TargetType="{x:Type ScrollBar}">
+                    <Track x:Name="PART_Track" IsDirectionReversed="False">
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb" Focusable="False" Template="{StaticResource ScrollBarThumbTemplate}" />
+                        </Track.Thumb>
+                    </Track>
+                </ControlTemplate>
+            </Style.Resources>
+            <Setter Property="OverridesDefaultStyle" Value="true" />
+            <Style.Triggers>
+                <Trigger Property="Orientation" Value="Horizontal">
+                    <Setter Property="Width" Value="Auto" />
+                    <Setter Property="Height" Value="5" />
+                    <Setter Property="Template" Value="{StaticResource HorizontalScrollBar}" />
+                </Trigger>
+                <Trigger Property="Orientation" Value="Vertical">
+                    <Setter Property="Width" Value="5" />
+                    <Setter Property="Height" Value="Auto" />
+                    <Setter Property="Template" Value="{StaticResource VerticalScrollBar}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid>
         <DockPanel>
-            <StackPanel Orientation="Vertical">
-                <Button Content="{Binding RefreshButtonText}" Command="{Binding RefreshCommand}"></Button>
-                <ListBox DockPanel.Dock="Left" Width="200" ItemsSource="{Binding Links}">
+            <DockPanel Background="Black" Width="300">
+                <Button DockPanel.Dock="Top" Height="30" Content="{Binding RefreshButtonText}" Command="{Binding RefreshCommand}" Foreground="DarkOrange" HorizontalContentAlignment="Center" FontSize="16"></Button>
+                <ListBox ItemsSource="{Binding Links}" HorizontalContentAlignment="Stretch" Foreground="LightGray" Background="Black" ScrollViewer.CanContentScroll="False" >
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Focusable" Value="False"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderThickness="1" BorderBrush="Black">
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="Author:" FontWeight="Bold"></TextBlock>
-                                    <TextBlock Text="{Binding RedditLink.Author}"></TextBlock>
-                                    <TextBlock Text="Title:" FontWeight="Bold"></TextBlock>
-                                    <TextBlock Text="{Binding RedditLink.Title}"></TextBlock>
-                                </StackPanel>
+                            <Border BorderBrush="Gray" BorderThickness="0 0 0 1">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Margin="3">
+                                        <Run Text="{Binding RedditLink.Author}" FontSize="18" />
+                                        <Run Text="{Binding RedditLink.CreatedAgo, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom">
+                                        <Button>
+                                            <Grid Margin="4">
+                                                <Ellipse Width="20" Height="20" Stroke="DarkOrange" StrokeThickness="2" />
+                                                <Path Width="8" Height="8" Data="M 0 0 L 8 8 M 0 8 L 8 0" Stroke="DarkOrange" StrokeThickness="2" />
+                                            </Grid>
+                                        </Button>
+                                        <TextBlock Text="Dismiss Post" Margin="3" VerticalAlignment="Center" FontSize="14" />
+                                        <TextBlock Margin="20,3,3,3" VerticalAlignment="Center" FontSize="14" Foreground="Orange">
+                                            <Run Text="{Binding RedditLink.NumComments}" />
+                                            <Run Text="comments" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                    <Image DockPanel.Dock="Left" Source="{Binding RedditLink.ThumbnailUrl}" Width="70" Height="70" Margin="5" />
+                                    <Button Content=">" DockPanel.Dock="Right" Margin="5" Foreground="LightGray" FontWeight="Bold" FontFamily="Courier New" FontSize="16" VerticalAlignment="Center" />
+                                    <TextBlock Text="{Binding RedditLink.Title}" Width="170" Height="50" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" Margin="3" />
+                                </DockPanel>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-            </StackPanel>
+            </DockPanel>
             <Grid></Grid>
         </DockPanel>
     </Grid>
